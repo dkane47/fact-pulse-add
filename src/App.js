@@ -124,7 +124,9 @@ const App = () => {
     
     // grab fact family to focus on
     let target;
-    if (logic.step === 0) {
+    if (logic.operation === 4) {
+      target = "mixed addition"
+    } else if (logic.step === 0) {
       target = "+1s";
     } else if (logic.step === 1) {
       target = "+2s";
@@ -263,7 +265,7 @@ const App = () => {
           generateProblem();
         } else if (tookMoreThanThreeSeconds && !displaySettings.switched) {//slow and analyzing mode
           targetedPractice();
-        } else if (tookMoreThanThreeSeconds && displaySettings.switched && logic.step % 2 === 0) {
+        } else if (tookMoreThanThreeSeconds && displaySettings.switched && logic.step % 2 === 0 && logic.operation < 4) {
           hold();
           generateProblem();
         } else {
