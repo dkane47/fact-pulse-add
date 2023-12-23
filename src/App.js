@@ -43,6 +43,8 @@ const App = () => {
   
   const [isLevelUpVisible, setIsLevelUpVisible] = React.useState(false);
 
+  const [timeToTarget, setTimeToTarget] = React.useState(3500);
+
   // Inside useEffect, add handleOperationChange to the dependency array:
   React.useEffect(() => {
     if (logic.operation > 0) {
@@ -64,15 +66,16 @@ const App = () => {
         ...prevLogic,
         step: prevLogic.step + 1
       }));
-    } else if (logic.step >= 5 && logic.operation === 3) { //if finished first four rounds do harder mutliplication
+    } else if (logic.step >= 5 && logic.operation === 3) { //if finished first four rounds do harder problems
       setLogic((prevLogic) => ({
         ...prevLogic,
         step: 0,
         operation: prevLogic.operation + 1,
         sequence: [
-      1, 2, 3, 4, 5, 6
+      7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7
     ]
       }));
+      setTimeToTarget(prevTimeToTarget => prevTimeToTarget - 500);
     } else if (logic.step >= 5) { //if operation is finished reset step and increment operation
       setLogic((prevLogic) => ({
         ...prevLogic,
@@ -82,6 +85,7 @@ const App = () => {
       1, 2, 3, 4, 5, 6
     ]
       }));
+      setTimeToTarget(prevTimeToTarget => prevTimeToTarget - 500);
     } else {
       setLogic((prevLogic) => ({ //otherwise increment step
         ...prevLogic,
@@ -181,9 +185,12 @@ const App = () => {
     } else if (type === 5) {
       newNum1 = Math.floor(Math.random() * 2 + 3);
       newNum2 = Math.floor(Math.random() * (6 + 3 - newNum1) + 5 + newNum1 - 3);
-    } else {
+    } else if (type === 6) {
       newNum1 = Math.floor(Math.random() * 4 + 5);
       newNum2 = Math.floor(Math.random() * (4 + 5 - newNum1) + 7 + newNum1 - 5);
+    } else {
+      newNum1 = Math.floor(Math.random() * 98 + 2);
+      newNum2 = Math.floor(Math.random() * 98 + 2);
     }
     
     // if there is a held problem, set the problem to the held problem
@@ -231,12 +238,12 @@ const App = () => {
     const currentTime = Date.now();
     const timeTaken = currentTime - problem.startTime;
     // Determine if time taken is more than 3 seconds
-    const tookMoreThanThreeSeconds = timeTaken > 3000;
+    const tookMoreThanThreeSeconds = timeTaken > timeToTarget;
     //variable for answer
     const ans = problem.num1 + problem.num2;
     //variable for correctness with conditional
     let correct;
-    if (logic.operation === 0) {
+    if (logic.operation === 0 || logic.operation === 4) {
       correct = parseInt(problem.userAnswer) === ans;
     } else {
       correct = parseInt(problem.userAnswer) === problem.num2;
@@ -347,17 +354,17 @@ const ProblemDisplay = ({
   const ans = num1 + num2;
 
   let displayEquation, result;
-  if (operation === 0) {
+  if (operation === 0 || operation === 4) {
     displayEquation = `${num1} + ${num2} = `;
     result = '';
   } else if (operation === 1) {
-    displayEquation = `${num1} + `;
-    result = `= ${ans}`;
-  } else if (operation === 2) {
-    displayEquation = `${ans} - ${num1} = `;
+    displayEquation = `${ans} \u2013 ${num1} = `;
     result = '';
+  } else if (operation === 2) {
+    displayEquation = `${num1}  + `;
+    result = `= ${ans}`;
   } else {
-    displayEquation = `${ans} - `;
+    displayEquation = `${ans}  \u2013  `;
     result = ` = ${num1}`;
   }
 
