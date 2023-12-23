@@ -334,7 +334,7 @@ const App = () => {
 const Introduction = ({ onReadyClick }) => {
   return (
     <div className="container">
-      <h1>Welcome to Fact Pulse</h1>
+      <h1>Welcome to Pulse</h1>
       <button className="ready-btn" onClick={onReadyClick}>Ready?</button>
     </div>
   );
