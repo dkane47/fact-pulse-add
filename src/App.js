@@ -31,7 +31,7 @@ const App = () => {
   //displaysettings
   const [displaySettings, setDisplaySettings] = React.useState({
     showContent: false, // Determines whether to show the main content or introduction
-    totalProblems: 28, // Total number of problems the user will encounter
+    totalProblems: 29, // Total number of problems the user will encounter
     switch: false, // boolean signaling that a user got a question wrong, and should switch modes once corrected
     switched: false // boolean signaling that practice mode has begun
   });
@@ -337,6 +337,7 @@ const Introduction = ({ onReadyClick }) => {
   return (
     <div className="container">
       <h1>Welcome to Pulse</h1>
+      <p>Solve each problem, then click the "Enter" key</p>
       <button className="ready-btn" onClick={onReadyClick}>Ready?</button>
     </div>
   );
@@ -360,11 +361,11 @@ const ProblemDisplay = ({
     displayEquation = `${num1} + ${num2} = `;
     result = '';
   } else if (operation === 1) {
-    displayEquation = `${ans} \u2013 ${num1} = `;
-    result = '';
-  } else if (operation === 2) {
     displayEquation = `${num1}  + `;
     result = `= ${ans}`;
+  } else if (operation === 2) {
+    displayEquation = `${ans} \u2013 ${num1} = `;
+    result = '';
   } else {
     displayEquation = `${ans}  \u2013  `;
     result = ` = ${num1}`;
