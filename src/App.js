@@ -337,7 +337,7 @@ const Introduction = ({ onReadyClick }) => {
   return (
     <div className="container">
       <h1>Welcome to Pulse</h1>
-      <p>Solve each problem, then click the "Enter" key</p>
+      <p>Solve each problem, then press Enter</p>
       <button className="ready-btn" onClick={onReadyClick}>Ready?</button>
     </div>
   );
