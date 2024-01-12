@@ -287,7 +287,7 @@ const App = () => {
         ...prevSettings,
         switch: true
       }));
-      } else if (displaySettings.switched && logic.step % 2 === 0) {
+      } else if (displaySettings.switched && logic.step % 2 === 0 && logic.operation < 4) {
         hold();
       }
     }
